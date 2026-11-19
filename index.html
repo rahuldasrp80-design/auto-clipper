@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b12"><title>Auto Clipper AI</title>
+<style>
+:root{--bg:#090b12;--panel:#121622;--panel2:#1a2030;--line:#293247;--fg:#f5f7fb;--mut:#9ba6ba;--green:#53fc18;--cyan:#6ee7f9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1a2940 0,transparent 55%),var(--bg);color:var(--fg);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1050px;margin:auto;padding:26px 16px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}.logo{width:38px;height:38px;border-radius:12px;background:var(--green);color:#081006;display:grid;place-items:center;font-size:21px}
+.pill{border:1px solid #314054;border-radius:30px;padding:7px 11px;color:var(--mut);font-size:12px}
+.hero{margin:20px 0 24px}.eyebrow{color:var(--green);font-weight:700;letter-spacing:2px;font-size:11px}.hero h1{font-size:clamp(30px,6vw,48px);line-height:1.05;margin:10px 0}.hero p{color:var(--mut);max-width:650px;line-height:1.6}
+.panel{background:linear-gradient(145deg,#151b29,#101521);border:1px solid var(--line);border-radius:18px;padding:18px;margin:18px 0;box-shadow:0 15px 45px #0003}
+.tabs{display:flex;gap:8px;margin-bottom:16px}.tab{background:var(--panel2);border:1px solid var(--line);color:var(--mut);padding:10px 14px;border-radius:10px;font:inherit;cursor:pointer}.tab.active{border-color:var(--green);color:var(--green)}
+label{display:block;color:#cbd5e1;font-size:13px;margin:12px 0 7px}input,select{width:100%;background:#090e18;border:1px solid #344056;color:var(--fg);padding:13px;border-radius:11px;font:inherit;min-width:0}
+.row{display:grid;grid-template-columns:1fr 150px;gap:12px}.primary{border:0;background:var(--green);color:#071006;font-weight:800;padding:14px 18px;border-radius:11px;font:inherit;cursor:pointer;width:100%;margin-top:14px}.primary:disabled{opacity:.5;cursor:wait}
+.hint{font-size:12px;color:var(--mut);line-height:1.5}.status{padding:12px;border-radius:10px;background:#0a101b;color:var(--cyan);margin-top:14px;min-height:44px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:16px}.clip{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:11px;min-width:0}.clip video{width:100%;aspect-ratio:9/16;object-fit:contain;background:#000;border-radius:10px}.meta{color:var(--mut);font-size:12px;margin:8px 2px}.clip textarea{width:100%;background:#0b101a;color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:9px;resize:vertical;min-height:65px;font:inherit;font-size:13px}.actions{display:flex;gap:8px;align-items:center;margin-top:9px}.small{border:1px solid var(--line);background:#202a3a;color:var(--fg);padding:9px 10px;border-radius:9px;font:inherit;font-size:12px;cursor:pointer}.download{color:var(--green);text-decoration:none;font-size:13px;font-weight:700;margin-left:auto}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.feature{border:1px solid var(--line);background:#111725;border-radius:12px;padding:13px}.feature b{display:block;margin-bottom:4px}.feature span{color:var(--mut);font-size:12px}
+footer{color:var(--mut);font-size:12px;line-height:1.6;margin-top:24px}
+@media(max-width:600px){main{padding:18px 12px 40px}.row{grid-template-columns:1fr}.features{grid-template-columns:1fr}.top{align-items:flex-start}.pill{font-size:10px}}
+</style></head>
+<body><main>
+<header class="top"><div class="brand"><div class="logo">▶</div> AUTO CLIPPER</div><div class="pill">BETA · FREE SETUP</div></header>
+<section class="hero"><div class="eyebrow">AI-ASSISTED VIDEO CLIPPING</div><h1>Long video se<br><span style="color:var(--green)">short clips.</span></h1><p>Kick, YouTube, Twitch links ya apni video upload karo. Highlight candidates ko vertical clips mein convert karo, captions add karo aur download karo.</p></section>
+<section class="panel">
+<div class="tabs"><button class="tab active" id="linkTab">Video link</button><button class="tab" id="uploadTab">Upload video</button></div>
+<div id="linkBox"><label>Video URL</label><input id="url" type="url" placeholder="https://youtube.com/watch?v=..."></div>
+<div id="uploadBox" hidden><label>Video file (MP4, MOV, MKV)</label><input id="file" type="file" accept="video/*"><p class="hint">Server upload limit deployment settings ke hisaab se hoga.</p></div>
+<div class="row"><div><label>Kitne clips?</label><select id="count"><option value="3">3 clips</option><option value="5" selected>5 clips</option><option value="8">8 clips</option></select></div><div><label>Format</label><input value="9:16 · 1080p" disabled></div></div>
+<button class="primary" id="go">✦ Generate clips</button>
+<div class="status" id="status">Ready. Video link ya upload select karein.</div>
+</section>
+<div id="results"></div>
+<section class="features"><div class="feature"><b>✦ Smart highlights</b><span>Audio activity based candidate selection.</span></div><div class="feature"><b>▣ Vertical format</b><span>9:16 crop, 1080 × 1920 export.</span></div><div class="feature"><b>CC Captions</b><span>Optional Whisper transcription + editable caption render.</span></div></section>
+<footer>Note: AI highlight detection is heuristic, not guaranteed viral prediction. Only process videos you own or have permission to use. Link downloads depend on source platform access and its terms. Free hosting may sleep, restart, or limit processing time.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);let mode="link",job=null,rendered=0;
+$("linkTab").onclick=()=>{mode="link";$("linkTab").classList.add("active");$("uploadTab").classList.remove("active");$("linkBox").hidden=false;$("uploadBox").hidden=true};
+$("uploadTab").onclick=()=>{mode="upload";$("uploadTab").classList.add("active");$("linkTab").classList.remove("active");$("linkBox").hidden=true;$("uploadBox").hidden=false};
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function showClips(clips){const host=$("results");for(;rendered<clips.length;rendered++){const c=clips[rendered];const el=document.createElement("article");el.className="clip";el.innerHTML=`<video controls playsinline preload="metadata" src="${safe(c.url)}"></video><div class="meta">${c.start}s – ${c.end}s · ${safe(c.reason)}</div><textarea placeholder="Apna caption likho...">${safe(c.text)}</textarea><div class="actions"><button class="small">Caption render</button><a class="download" href="${safe(c.url)}" download="auto-clip-${c.id}.mp4">Download ↓</a></div>`;const btn=el.querySelector("button"),ta=el.querySelector("textarea"),vid=el.querySelector("video"),a=el.querySelector("a");btn.onclick=async()=>{btn.disabled=true;btn.textContent="Rendering...";try{const r=await fetch(`/api/jobs/${job}/clips/${c.id}/caption`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:ta.value})});const data=await r.json();if(!r.ok)throw Error(data.detail||"Render failed");vid.src=data.url;a.href=data.url;btn.textContent="Caption updated"}catch(e){btn.textContent="Try again";alert(e.message)}finally{btn.disabled=false}};host.appendChild(el)}}
+async function poll(){try{const r=await fetch(`/api/jobs/${job}`),j=await r.json();$("status").textContent=j.status;showClips(j.clips||[]);if(j.state==="running"){setTimeout(poll,2500);return} $("go").disabled=false}catch(e){$("status").textContent="Server connection error";$("go").disabled=false}}
+$("go").onclick=async()=>{const url=$("url").value.trim(),file=$("file").files[0];if(mode==="link"&&!url){alert("Video URL daalo");return}if(mode==="upload"&&!file){alert("Video file select karo");return}
+$("go").disabled=true;$("results").innerHTML="";rendered=0;$("status").textContent="Uploading / starting job...";
+const fd=new FormData();fd.append("n",$("count").value);if(mode==="link")fd.append("url",url);else fd.append("video",file);
+try{const r=await fetch("/api/jobs",{method:"POST",body:fd});const data=await r.json();if(!r.ok)throw Error(data.detail||"Job start nahi hua");job=data.id;poll()}catch(e){$("status").textContent=e.message;$("go").disabled=false}};
+</script></body></html>

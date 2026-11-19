@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: auto-clipper
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: MAX_UPLOAD_MB
+        value: "250"
+      - key: ENABLE_WHISPER
+        value: "false"
